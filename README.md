@@ -9,8 +9,6 @@ This project implements a 3-Tier Architecture on AWS using Terraform Infrastruct
 
 •	Modular Design: VPC, Compute, Security Groups, Database, and Load Balancer are separated into reusable modules.
 
-•	Cost Optimization: Automated cleanup scripts for unused AWS resources like EC2, EBS volumes, Elastic IPs, and NAT Gateways.
-
 •	Secrets Management: AWS Secrets Manager is used to store sensitive data.
 
 •	Remote State Management: S3 bucket with DynamoDB for state locking and versioning.
@@ -63,7 +61,7 @@ ________________________________________
 
 1. Clone the Repository
 
-    git clone [GitHub Repo Link]
+    git clone https://github.com/Sowmyadevi2005/Terraform-3-Tier-Architecture
 
     cd 3-tier architecture
 
@@ -100,20 +98,14 @@ backend "s3" {
   
   encrypt        = true
   
+  dynamodb_table = "terraform-lock" 
+  
 }
+
+Note: S3 bucket and Dynamo DB Should be created before initalizting the backend.tf
 ________________________________________
 **Secrets Management**
 
 Sensitive information like database passwords is stored securely in AWS Secrets Manager. The secret is fetched dynamically during resource provisioning.
-________________________________________
-**Cleanup Automation**
 
-Scripts automatically clean up unused AWS resources like:
-
-•	Unattached EBS Volumes
-
-•	Unused Elastic IPs
-
-•	Idle NAT Gateways
-________________________________________
 
